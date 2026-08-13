@@ -30,7 +30,7 @@ public class ProductoServiceImpl implements ProductoService {
     @Override
     public Producto crearProducto(Producto prod) {
 
-        // VAlidación de que el rpoducto no sea null
+        // VAlidación de que el producto no sea null
 
         if (prod==null) {
             return null;
@@ -45,7 +45,7 @@ public class ProductoServiceImpl implements ProductoService {
     public Producto editarProducto(Long codProd, Producto prod) {
 
         // buscar si existe el producto
-        Producto prodExistente= buscarProducto(codProd);
+        Producto prodExistente = buscarProducto(codProd);
 
         // validación
 
@@ -68,7 +68,7 @@ public class ProductoServiceImpl implements ProductoService {
 
     @Override
     public boolean eliminarProducto(Long codProd) {
-        Producto prodExistente= buscarProducto(codProd);
+        Producto prodExistente = buscarProducto(codProd);
 
         if (prodExistente == null) {
             return  false;
