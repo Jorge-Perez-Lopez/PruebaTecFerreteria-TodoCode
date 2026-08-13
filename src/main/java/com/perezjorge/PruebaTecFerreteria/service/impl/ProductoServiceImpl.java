@@ -36,6 +36,12 @@ public class ProductoServiceImpl implements ProductoService {
             return null;
         }
 
+        boolean valido = this.validarDatos(prod);
+
+        if (!valido) {
+            return  null;
+        }
+
         // Id se genera automáticamente en la BD y con etso la devolvemos junto el producto
 
       return prodRepo.save(prod);
@@ -44,7 +50,7 @@ public class ProductoServiceImpl implements ProductoService {
     @Override
     public Producto editarProducto(Long codProd, Producto prod) {
 
-        // buscar si existe el producto
+        // Buscar si existe el producto
         Producto prodExistente = buscarProducto(codProd);
 
         // validación
@@ -52,6 +58,16 @@ public class ProductoServiceImpl implements ProductoService {
         if (prodExistente==null) {
             return null;
         }
+
+        // Falta validar si cada uno de los elementos es null o no
+
+        boolean valido = this.validarDatos(prod);
+
+        if (!valido) {
+            return  null;
+        }
+
+
 
         // Actualizamos los datos con el producto
 
@@ -77,5 +93,25 @@ public class ProductoServiceImpl implements ProductoService {
         prodRepo.delete(prodExistente);
 
         return true;
+    }
+
+    public boolean validarDatos(Producto prod) {
+        if (prod.getNombre() == null || prod.getNombre().isBlank()) {
+            return  false;
+        }
+
+        if (prod.getMarca() == null || prod.getMarca().isBlank()) {
+            return  false;
+        }
+
+        if (prod.getCategoria() == null || prod.getCategoria().isBlank()) {
+            return  false;
+        }
+
+        if (prod.getPrecio() == null || prod.getPrecio() <=0) {
+            return  false;
+        }
+
+        return prod.getStock() > 0;
     }
 }
